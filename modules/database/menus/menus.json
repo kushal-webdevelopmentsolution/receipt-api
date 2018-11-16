@@ -1,0 +1,25 @@
+[{
+	"id":1,
+	"path":"#!/home",
+	"order":1
+},
+{
+	"id":2,
+	"path":"#!/about",
+	"order":2
+},
+{
+	"id":3,
+	"path":"#!/gallery",
+	"order":3
+},
+{
+	"id":4,
+	"path":"#!/services",
+	"order":4
+},
+{
+	"id":5,
+	"path":"#!/contact",
+	"order":5
+}]

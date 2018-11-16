@@ -1,0 +1,7 @@
+{
+  "name": "menus",
+  "description": "menus modeal",
+  "private": true,
+  "version": "1.0.0",
+  "main": "menus.js"
+}

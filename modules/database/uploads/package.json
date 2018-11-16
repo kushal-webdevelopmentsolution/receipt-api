@@ -1,0 +1,7 @@
+{
+  "name": "uploads",
+  "description": "uploads modal",
+  "private": true,
+  "version": "1.0.0",
+  "main": "uploads.js"
+}

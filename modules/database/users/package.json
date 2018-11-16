@@ -1,0 +1,7 @@
+{
+  "name": "users",
+  "description": "users modal",
+  "private": true,
+  "version": "1.0.0",
+  "main": "users.js"
+}

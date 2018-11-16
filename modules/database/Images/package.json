@@ -1,0 +1,7 @@
+{
+  "name": "images",
+  "description": "images modeal",
+  "private": true,
+  "version": "1.0.0",
+  "main": "Images.js"
+}
