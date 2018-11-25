@@ -1,0 +1,3 @@
+CREATE TABLE receipt.users(id serial PRIMARY KEY, email VARCHAR(255) UNIQUE, first_name VARCHAR(40) not null,last_name VARCHAR(40) not null,password VARCHAR(40) not null)
+
+CREATE TABLE receipt.images(id serial PRIMARY KEY,userId INT not null, image TEXT not null, pdf_url VARCHAR(255) not null,imageText TEXT )

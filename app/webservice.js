@@ -64,10 +64,8 @@ module.exports = function(app){
 	app.post('/common/receipt/auth',Users.authUser);
 
 	app.post('/api/receipt/createimages',Images.createImages);
-	
-	app.get('/api/receipt/images',Images.getImages);
-	
-	app.post('/api/receipt/detectTextFromImage',Images.detectTextFromImage);
+
+	app.post('/api/receipt/getimages',Images.getImages);
 
 	//app.post('/api/app/createmenus',menus.createMenus);
 	

@@ -15,7 +15,7 @@ var createUserTable = function(callback){
       			return res.status(500).json({success: false, data: err});
     		}
     		// SQL Query > Insert Data
-      		const query =	client.query('CREATE TABLE receipt.users(email VARCHAR(255) PRIMARY KEY, first_name VARCHAR(40) not null,last_name VARCHAR(40) not null,password VARCHAR(40) not null)',function(err,response){
+      		const query =	client.query('CREATE TABLE receipt.users(id serial PRIMARY KEY, email VARCHAR(255) UNIQUE, first_name VARCHAR(40) not null,last_name VARCHAR(40) not null,password VARCHAR(40) not null)',function(err,response){
       			if(!err){
       				console.log("Response ", response);
       				return callback(response);
