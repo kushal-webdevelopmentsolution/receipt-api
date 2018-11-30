@@ -1,4 +1,4 @@
-var db = require("../database");
+'use strict';
 var imagemodel = require("../models/images");
 
 exports.createImages = function(req,res){
@@ -12,8 +12,17 @@ exports.createImages = function(req,res){
 }
 
 exports.getImages = function(req,res){
-	console.log("Request Body ",req.body);
 	imagemodel.getImages(req.body,function(response){
+		try{
+			res.status(200).jsonp(response);
+		}catch(err){
+			res.status(500).jsonp(err);
+		}
+	});
+}
+
+exports.deleteImage = function(req,res){
+	imagemodel.deleteImage(req.body,function(response){
 		try{
 			res.status(200).jsonp(response);
 		}catch(err){

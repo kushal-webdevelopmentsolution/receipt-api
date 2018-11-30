@@ -1,7 +1,7 @@
 
 const pg = require('pg');
 const connection = require('./connection.js');
-
+const {logger} = require('./../../../config/logger');
 
 var createUserTable = function(callback){
 	
@@ -11,17 +11,17 @@ var createUserTable = function(callback){
     		// Handle connection errors
     		if(err) {
       			done();
-      			console.log(err);
+      			logger.debug("Connection Error "+JSON.stringify(err));
       			return res.status(500).json({success: false, data: err});
     		}
     		// SQL Query > Insert Data
       		const query =	client.query('CREATE TABLE receipt.users(id serial PRIMARY KEY, email VARCHAR(255) UNIQUE, first_name VARCHAR(40) not null,last_name VARCHAR(40) not null,password VARCHAR(40) not null)',function(err,response){
       			if(!err){
-      				console.log("Response ", response);
+      				logger.info('User table created successfully');
       				return callback(response);
       			}
       			else{
-      				console.log("Error ",err);
+      				logger.debug("Error in createUserTable: "+JSON.stringify(err));
       				return callback(err);
       			}
       		});
@@ -43,7 +43,7 @@ var createUser = function(user,callback){
     		// Handle connection errors
     		if(err) {
       			done();
-      			console.log(err);
+      			logger.debug("Connection Error: "+JSON.stringify(err));
       			return res.status(500).json({success: false, data: err});
     		}
     		// SQL Query > Insert Data
@@ -51,11 +51,11 @@ var createUser = function(user,callback){
             [user.email, user.fname, user.lname, user.password],
             function(err,response){
       			if(!err){
-      				console.log("Response ", response);
+      				logger.info("User created ");
       				return callback(response);
       			}
       			else{
-      				console.log("Error ",err);
+      				logger.debug("Error in creating user: "+JSON.stringify(err));
       				return callback(err);
       			}
       		});
@@ -78,7 +78,7 @@ var authenticateUser = function(user,callback){
         // Handle connection errors
         if(err) {
             done();
-            console.log("Model Error ",err);
+            logger.debug("Connection Error: "+JSON.stringify(err));
             return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Insert Data
@@ -86,11 +86,11 @@ var authenticateUser = function(user,callback){
             [user.email, user.password],
             function(err,response){
               if(!err){
-                console.log("Response ", response);
+                logger.info("User authenticated Successfully ", user.email);
                 return callback(response);
             }
             else{
-              console.log("Error ",err);
+                logger.debug("Auth Error "+JSON.stringify(err));
               return callback(err);
             }
           });

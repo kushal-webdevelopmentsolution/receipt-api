@@ -1,8 +1,8 @@
 module.exports = function(app){
 	var path = require("path");
-	//var multer  = require('multer');
+	var logger = require('../config/logger');
+	var morgan = require('morgan');
 	var bodyParser = require('body-parser'); 
-	var database = require("../modules/database");
 	var Images = require("../modules/database/Images");
 	var Users = require("../modules/database/users");
 	var basicAuth = require('basic-auth');
@@ -31,7 +31,8 @@ module.exports = function(app){
 	
 	app.use(bodyParser.json({limit:'100mb'})); 
 	app.use(bodyParser.urlencoded({limit:'100mb', extended: true}));
-	
+	//app.use(morgan('combined', { stream: logger.stream }));
+
 	app.use(function(err, req, res, next){
 		res.status(err.status || 500);
 		res.send({
@@ -41,9 +42,19 @@ module.exports = function(app){
 		return;
 	});
 
-	/*app.get('/app/*',function(req,res,next){
-	 next();
-	})*/
+	/*app.use(function(err, req, res, next) {
+  		// set locals, only providing error in development
+  		res.locals.message = err.message;
+  		//res.locals.error = req.app.get('env') === 'development' ? err : {};
+  		res.locals.error = err;
+
+  		// add this line to include winston logging
+  		logger.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+
+  		// render the error page
+  		res.status(err.status || 500);
+  		res.render('error');
+	});*/
 	
 	app.get('/common/*',auth,function(req,res,next){
 	 next();
@@ -56,7 +67,7 @@ module.exports = function(app){
 	app.get('/',function(req,res,next){
 		console.log("Api working file");
 	})
-	
+
 	app.get('/common/receipt/createusertable',Users.createUserTable);
 
 	app.post('/common/receipt/createuser',Users.createUser);
@@ -67,15 +78,5 @@ module.exports = function(app){
 
 	app.post('/api/receipt/getimages',Images.getImages);
 
-	//app.post('/api/app/createmenus',menus.createMenus);
-	
-	//app.get('/api/app/menus',menus.getMenus);
-	
-	//app.get('/api/app/getImages/:group',uploads.getImages);
-	
-	//app.post('/api/app/uploadImage',upload.single('file'),uploads.createUploads);
-	
-	//app.post('/api/app/updateImage',upload.single('file'),uploads.updateImage);
-	
-	//app.get('/api/app/deleteImage/:group/:id',uploads.deleteImage);
+	app.post('/api/receipt/deleteimage',Images.deleteImage);
 }

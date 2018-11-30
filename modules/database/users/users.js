@@ -1,4 +1,4 @@
-var db = require("../database");
+'use strict';
 var usermodel = require("../models/users");
 
 exports.createUserTable = function(req,res){
