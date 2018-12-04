@@ -1,7 +1,6 @@
 
 const pg = require('pg');
 const connection = require('./connection.js');
-const {logger} = require('./../../../config/logger');
 
 var createImage = function(image,callback){
 	
@@ -11,19 +10,19 @@ var createImage = function(image,callback){
     		// Handle connection errors
     		if(err) {
       			done();
-      			logger.debug("Connection Error "+JSON.stringify(err));
+      			console.log("Connection Error "+JSON.stringify(err));
       			return res.status(500).json({success: false, data: err});
     		}
     		// SQL Query > Insert Data
-      		const query =	client.query('INSERT into receipt.images (userid, image, pdf_url, imagetext, companyname, totalamount) VALUES($1, $2, $3, $4, $5, $6) RETURNING id', 
-            [image.userId, image.image, image.pdf_url, image.imageText,image.companyName,image.totalAmount],
+      		const query =	client.query('INSERT into receipt.images (userid, image, pdf_url, imagetext, companyname, totalamount, business_date) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id', 
+            [image.userId, image.image, image.pdf_url, image.imageText,image.companyName,image.totalAmount,image.business_date],
             function(err,response){
       			if(!err){
-              logger.info("Image created Successfully");
+              console.log("Image created Successfully");
       				return callback(response);
       			}
       			else{
-      				logger.debug("Error in creation of image record "+JSON.stringify(err));
+      				console.log("Error in creation of image record "+JSON.stringify(err));
       				return callback(err);
       			}
       		});
@@ -46,7 +45,7 @@ var getImages = function(image,callback){
         // Handle connection errors
         if(err) {
             done();
-            logger.debug("Connection Error "+JSON.stringify(err));
+            console.log("Connection Error "+JSON.stringify(err));
             return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Insert Data
@@ -54,11 +53,11 @@ var getImages = function(image,callback){
             [image.userId],
             function(err,response){
             if(!err){
-              //logger.info("Retrive Images Successfully");
+              //console.log("Retrive Images Successfully");
               return callback(response);
             }
             else{
-              logger.debug("Error in retriving images "+JSON.stringify(err));
+              console.log("Error in retriving images "+JSON.stringify(err));
               return callback(err);
             }
           });
@@ -80,7 +79,7 @@ var deleteImage = function(image,callback){
         // Handle connection errors
         if(err) {
             done();
-            logger.debug("Connection Error "+JSON.stringify(err));
+            console.log("Connection Error "+JSON.stringify(err));
             return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Insert Data
@@ -88,11 +87,11 @@ var deleteImage = function(image,callback){
             [image.id],
             function(err,response){
             if(!err){
-              logger.info("Image Deleted Successfully "+image.id);
+              console.log("Image Deleted Successfully "+image.id);
               return callback(response);
             }
             else{
-              logger.debug("Error in deleting an images "+JSON.stringify(err));
+              console.log("Error in deleting an images "+JSON.stringify(err));
               return callback(err);
             }
           });

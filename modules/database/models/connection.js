@@ -1,11 +1,11 @@
 
 const config = {
-	host:'localhost',
-    user:'kushal',
-    database:'kushal',
-    password:'kushalkristi2209',
-    port: 5432,
-    currentSchema:'receipt'
+	host:process.env.host,
+    user:process.env.user,
+    database:process.env.database,
+    password:process.env.password,
+    port: process.env.port,
+    currentSchema:process.env.currentSchema
 };
 module.exports = {
  config:config
